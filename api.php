@@ -34,5 +34,11 @@ switch ($method) {
         $stmt->execute([':csapatnev' => $input['csapatnev'], ':id' => $input['id']]);
         echo json_encode(["success" => true]);
         break;
+
+    case 'DELETE':
+        $stmt = $dbh->prepare("DELETE FROM klub WHERE id = :id");
+        $stmt->execute([':id' => $input['id']]);
+        echo json_encode(["success" => true]);
+        break;
 }
 ?>
