@@ -22,7 +22,139 @@
         <a href="axios.html">Axios</a>
         <a href="oojs.html">OOJS</a>
     </nav>
+    <div class="crud-container">
+        <h2>NB1 Játékosok</h2>
+        
+        <div id="urlap">
+            <div class="form-group">
+                <label>Vezetéknév:</label>
+                <input type="text" id="vnev">
+            </div>
+            <div class="form-group">
+                <label>Keresztnév:</label>
+                <input type="text" id="unev">
+            </div>
+            <div class="form-group">
+                <label>Születési idő:</label>
+                <input type="text" id="szulido">
+            </div>
+            <button type="button" id="mentesGomb" class="btn-add" onclick="mentes()">Hozzáadás</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Vezetéknév</th>
+                    <th>Keresztnév</th>
+                    <th>Szül. idő</th>
+                    <th>Műveletek</th>
+                </tr>
+            </thead>
+            <tbody id="tablaTorzs"></tbody>
+        </table>
+    </div>
 
-    
+    <footer>
+        <p><strong>Készítette:</strong></p>
+        <p>Tóth Bence Gábor - BFRL41</p>
+        <p>Posváncz Erik Attila - BPN12N</p>
+    </footer>
+    <script>
+        var jatekosok = [
+            { id: 1, vezeteknev: "Haris", utonev: "Attila", szulido: "1997.01.23" },
+            { id: 2, vezeteknev: "Németh", utonev: "Márió", szulido: "1995.05.01" },
+            { id: 3, vezeteknev: "Jovanovic", utonev: "Aleksandar", szulido: "1984.10.26" },
+            { id: 4, vezeteknev: "Kuti", utonev: "Krisztián", szulido: "1992.12.04" }
+        ];
+
+        var szerkesztId = null; 
+
+        function tablaFrissites() {
+            var html = "";
+            for (var i = 0; i < jatekosok.length; i++) {
+                html += "<tr>";
+                html += "<td>" + jatekosok[i].id + "</td>";
+                html += "<td>" + jatekosok[i].vezeteknev + "</td>";
+                html += "<td>" + jatekosok[i].utonev + "</td>";
+                html += "<td>" + jatekosok[i].szulido + "</td>";
+                html += "<td>";
+                // Itt adom hozzá a kért osztályokat a gombokhoz
+                html += "<button class='btn-edit' onclick='szerkesztes(" + jatekosok[i].id + ")'>Szerkeszt</button>";
+                html += "<button class='btn-delete' onclick='torles(" + jatekosok[i].id + ")'>Töröl</button>";
+                html += "</td>";
+                html += "</tr>";
+            }
+            document.getElementById("tablaTorzs").innerHTML = html;
+        }
+
+        function mentes() {
+            var v = document.getElementById("vnev").value;
+            var u = document.getElementById("unev").value;
+            var sz = document.getElementById("szulido").value;
+
+            if (v == "" || u == "" || sz == "") {
+                alert("Minden mezőt kötelező kitölteni!");
+                return;
+            }
+
+            if (szerkesztId == null) {
+                var ujId = 1;
+                if (jatekosok.length > 0) {
+                    ujId = jatekosok[jatekosok.length - 1].id + 1;
+                }
+                jatekosok.push({ id: ujId, vezeteknev: v, utonev: u, szulido: sz });
+            } else {
+                for (var i = 0; i < jatekosok.length; i++) {
+                    if (jatekosok[i].id == szerkesztId) {
+                        jatekosok[i].vezeteknev = v;
+                        jatekosok[i].utonev = u;
+                        jatekosok[i].szulido = sz;
+                        break;
+                    }
+                }
+            }
+
+            mezokUritese();
+            tablaFrissites();
+        }
+
+        function torles(id) {
+            if (confirm("Biztosan törölni akarja?")) {
+                for (var i = 0; i < jatekosok.length; i++) {
+                    if (jatekosok[i].id == id) {
+                        jatekosok.splice(i, 1);
+                        break;
+                    }
+                }
+                tablaFrissites();
+            }
+        }
+
+        function szerkesztes(id) {
+            for (var i = 0; i < jatekosok.length; i++) {
+                if (jatekosok[i].id == id) {
+                    document.getElementById("vnev").value = jatekosok[i].vezeteknev;
+                    document.getElementById("unev").value = jatekosok[i].utonev;
+                    document.getElementById("szulido").value = jatekosok[i].szulido;
+                    szerkesztId = id;
+                    document.getElementById("mentesGomb").innerHTML = "Mentés (Módosítás)";
+                    break;
+                }
+            }
+        }
+
+        function mezokUritese() {
+            document.getElementById("vnev").value = "";
+            document.getElementById("unev").value = "";
+            document.getElementById("szulido").value = "";
+            szerkesztId = null;
+            document.getElementById("mentesGomb").innerHTML = "Hozzáadás";
+        }
+
+        window.onload = function() {
+            tablaFrissites();
+        };
+    </script>
+
 </body>
 </html>
