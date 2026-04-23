@@ -75,6 +75,17 @@ label {
     font-size: 14px;
 }
 
+input[type="text"] {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ced4da; /* keret az inputnak */
+    border-radius: 4px; /* lekerekített beviteli mező */
+    box-sizing: border-box;
+    font-size: 15px;
+    color: #212529;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
 button {
     padding: 10px 20px;
     font-size: 14px;
