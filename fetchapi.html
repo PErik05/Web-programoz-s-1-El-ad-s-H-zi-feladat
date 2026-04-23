@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web programozás-1 | Fetch API CRUD</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .crud-container { text-align: left; margin-top: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
+        .form-group input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { padding: 10px 15px; background-color: #34495e; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #2c3e50; }
+        .btn-edit { background-color: #f39c12; padding: 6px 10px; }
+        .btn-delete { background-color: #e74c3c; padding: 6px 10px; }
+        .btn-cancel { background-color: #7f8c8d; display: none; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
+        table, th, td { border: 1px solid #bdc3c7; }
+        th, td { padding: 10px; text-align: left; }
+        th { background-color: #ecf0f1; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Web programozás-1 Előadás Házi feladat</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">Főoldal</a>
+        <a href="javascript.html">JavaScript CRUD</a>
+        <a href="react.html">React CRUD</a>
+        <a href="spa.html">SPA App</a>
+        <a href="fetchapi.html">Fetch API</a>
+        <a href="axios.html">Axios</a>
+        <a href="oojs.html">OOJS</a>
+    </nav>
+
+    <main>
+        <div class="crud-card">
+            <h2>NB1 Csapatok</h2>
+            <form id="teamForm">
+                <input type="hidden" id="teamId">
+                <div class="form-group">
+                    <label>Csapatnév:</label>
+                    <input type="text" id="csapatnev" required>
+                </div>
+                <button type="submit" id="saveBtn">Hozzáadás</button>
+                <button type="button" onclick="resetForm()" id="cancelBtn" style="display:none; background:#7f8c8d;">Mégse</button>
+            </form>
+
+            <table id="teamTable">
+                <thead><tr><th>ID</th><th>Csapatnév</th><th>Műveletek</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <p><strong>Készítette:</strong></p>
+        <p>Tóth Bence Gábor - BFRL41</p>
+        <p>Posváncz Erik Attila - BPN12N</p>
+    </footer>
+
+    <script>
+        const tableBody = document.querySelector('#teamTable tbody');
+        const form = document.getElementById('teamForm');
+
+        function loadTeams() {
+            fetch('api.php').then(r => r.json()).then(data => {
+                tableBody.innerHTML = data.map(team => `
+                    <tr>
+                        <td>${team.id}</td>
+                        <td>${team.csapatnev}</td>
+                        <td>
+                            <button class="btn-edit" onclick="editTeam(${team.id}, '${team.csapatnev}')">Szerkeszt</button>
+                            <button class="btn-delete" onclick="deleteTeam(${team.id})">Töröl</button>
+                        </td>
+                    </tr>
+                `).join('');
+            });
+        }
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const id = document.getElementById('teamId').value;
+            const csapatnev = document.getElementById('csapatnev').value;
+            const method = id ? 'PUT' : 'POST';
+            
+            fetch('api.php', {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, csapatnev })
+            }).then(() => { resetForm(); loadTeams(); });
+        });
+
+        function deleteTeam(id) {
+            if(confirm('Biztosan törlöd?')) {
+                fetch('api.php', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id })
+                }).then(loadTeams);
+            }
+        }
+
+        function editTeam(id, name) {
+            document.getElementById('teamId').value = id;
+            document.getElementById('csapatnev').value = name;
+            document.getElementById('saveBtn').textContent = 'Módosítás';
+            document.getElementById('cancelBtn').style.display = 'inline-block';
+        }
+
+        function resetForm() {
+            form.reset();
+            document.getElementById('teamId').value = '';
+            document.getElementById('saveBtn').textContent = 'Hozzáadás';
+            document.getElementById('cancelBtn').style.display = 'none';
+        }
+
+        loadTeams();
+    </script>
+</body>
+</html>
