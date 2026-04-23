@@ -55,9 +55,18 @@ footer p {
 }
 
 
-.crud-card {
+.crud-container {
     max-width: 800px;
     margin: 10px auto;
     padding: 10 30px 30px 30px;
     border-radius: 8px; 
+}
+
+label {
+    text-align: left;
+    display: block;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #495057;
+    font-size: 14px;
 }
