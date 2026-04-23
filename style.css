@@ -53,3 +53,11 @@ footer p {
     margin: 5px 0;
     font-size: 1.1rem;
 }
+
+
+.crud-card {
+    max-width: 800px;
+    margin: 10px auto;
+    padding: 10 30px 30px 30px;
+    border-radius: 8px; 
+}
