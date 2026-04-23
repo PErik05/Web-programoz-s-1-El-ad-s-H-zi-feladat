@@ -41,6 +41,18 @@ nav a {
     font-weight: bold;
 }
 
+nav a:hover {
+    background-color: #ff6600;
+}
+
+main {
+    flex: 1;
+    padding: 3rem 2rem;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
 footer {
     background-color: #161B40;
     color: #bdc3c7;
