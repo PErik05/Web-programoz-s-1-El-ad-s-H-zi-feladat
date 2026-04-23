@@ -5,21 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web programozás-1 | Fetch API CRUD</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .crud-container { text-align: left; margin-top: 20px; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
-        .form-group input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { padding: 10px 15px; background-color: #34495e; color: white; border: none; border-radius: 4px; cursor: pointer; }
-        button:hover { background-color: #2c3e50; }
-        .btn-edit { background-color: #f39c12; padding: 6px 10px; }
-        .btn-delete { background-color: #e74c3c; padding: 6px 10px; }
-        .btn-cancel { background-color: #7f8c8d; display: none; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
-        table, th, td { border: 1px solid #bdc3c7; }
-        th, td { padding: 10px; text-align: left; }
-        th { background-color: #ecf0f1; }
-    </style>
 </head>
 <body>
 
@@ -38,16 +23,17 @@
     </nav>
 
     <main>
-        <div class="crud-container">
+        <div class="crud-card">
             <h2>NB1 Csapatok</h2>
             <form id="teamForm">
                 <input type="hidden" id="teamId">
+                
                 <div class="form-group">
-                    <label>Csapatnév:</label>
-                    <input type="text" id="csapatnev" required>
+                    <label for="csapatnev">Csapat neve:</label>
+                    <input type="text" id="csapatnev" placeholder="Adja meg a csapat nevét" required>
                 </div>
-                <button type="button" id="mentesGomb" class="btn-add" onclick="mentes()">Hozzáadás</button>
-                <button type="button" onclick="resetForm()" id="cancelBtn" style="display:none; background:#7f8c8d;">Mégse</button>
+                <button type="submit" id="saveBtn" class="btn-main">Hozzáadás</button>
+                <button type="button" id="cancelBtn" class="btn-cancel" style="display:none;" onclick="resetForm()">Mégse</button>
             </form>
 
             <table id="teamTable">
