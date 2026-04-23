@@ -28,5 +28,11 @@ switch ($method) {
         $stmt->execute([':csapatnev' => $input['csapatnev']]);
         echo json_encode(["success" => true]);
         break;
+
+    case 'PUT':
+        $stmt = $dbh->prepare("UPDATE klub SET csapatnev = :csapatnev WHERE id = :id");
+        $stmt->execute([':csapatnev' => $input['csapatnev'], ':id' => $input['id']]);
+        echo json_encode(["success" => true]);
+        break;
 }
 ?>
