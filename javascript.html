@@ -80,8 +80,8 @@
                 html += "<td>" + jatekosok[i].szulido + "</td>";
                 html += "<td>";
                 // Itt adom hozzá a kért osztályokat a gombokhoz
-                html += "<button class='btn-edit' onclick='szerkesztes(" + jatekosok[i].id + ")'>Szerkeszt</button>";
-                html += "<button class='btn-delete' onclick='torles(" + jatekosok[i].id + ")'>Töröl</button>";
+                html += "<button class='btn-edit' onclick='szerkesztes(" + jatekosok[i].id + ")'>Szerkesztés</button>";
+                html += "<button class='btn-delete' onclick='torles(" + jatekosok[i].id + ")'>Törlés</button>";
                 html += "</td>";
                 html += "</tr>";
             }
@@ -138,7 +138,7 @@
                     document.getElementById("unev").value = jatekosok[i].utonev;
                     document.getElementById("szulido").value = jatekosok[i].szulido;
                     szerkesztId = id;
-                    document.getElementById("mentesGomb").innerHTML = "Mentés (Módosítás)";
+                    document.getElementById("mentesGomb").innerHTML = "Módosítás";
                     break;
                 }
             }
