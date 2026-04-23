@@ -22,5 +22,11 @@ switch ($method) {
         $stmt = $dbh->query("SELECT * FROM klub");
         echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
         break;
+
+    case 'POST':
+        $stmt = $dbh->prepare("INSERT INTO klub (csapatnev) VALUES (:csapatnev)");
+        $stmt->execute([':csapatnev' => $input['csapatnev']]);
+        echo json_encode(["success" => true]);
+        break;
 }
 ?>
