@@ -17,5 +17,10 @@ try {
 $method = $_SERVER['REQUEST_METHOD'];
 $input = json_decode(file_get_contents('php://input'), true);
 
-
+switch ($method) {
+    case 'GET':
+        $stmt = $dbh->query("SELECT * FROM klub");
+        echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+        break;
+}
 ?>
