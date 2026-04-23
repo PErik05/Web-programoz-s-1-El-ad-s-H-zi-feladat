@@ -16,3 +16,11 @@ header {
     padding: 2rem 0;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
+
+nav {
+    background-color: #192057;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0.5rem;
+}
