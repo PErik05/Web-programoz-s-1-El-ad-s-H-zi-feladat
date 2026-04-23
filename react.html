@@ -36,5 +36,101 @@
         <p>Tóth Bence Gábor - BFRL41</p>
         <p>Posváncz Erik Attila - BPN12N</p>
     </footer>
+
+      <script type="text/babel">
+        const { useState } = React;
+
+        function App() {
+            const [klubok, setKlubok] = useState([
+                { id: 1, csapatnev: 'Ferencvárosi TC' },
+                { id: 2, csapatnev: 'MOL Fehérvár FC' },
+                { id: 3, csapatnev: 'Puskás Akadémia' },
+                { id: 4, csapatnev: 'Újpest FC' },
+            ]);
+
+            const [ujKlubNev, setUjKlubNev] = useState('');
+            const [szerkesztId, setSzerkesztId] = useState(null);
+
+            const handleAddOrUpdate = () => {
+                if (!ujKlubNev) return;
+
+                if (szerkesztId) {
+                    setKlubok(klubok.map((klub) => 
+                        klub.id === szerkesztId ? { ...klub, csapatnev: ujKlubNev } : klub
+                    ));
+                    setSzerkesztId(null);
+                } else {
+                    const ujKlub = {
+                        id: klubok.length > 0 ? Math.max(...klubok.map(k => k.id)) + 1 : 1,
+                        csapatnev: ujKlubNev,
+                    };
+                    setKlubok([...klubok, ujKlub]);
+                }
+                setUjKlubNev('');
+            };
+
+            const handleDelete = (id) => {
+                setKlubok(klubok.filter((klub) => klub.id !== id));
+            };
+
+            const handleEdit = (klub) => {
+                setUjKlubNev(klub.csapatnev);
+                setSzerkesztId(klub.id);
+            };
+
+            return (
+                <div className="crud-container">
+                    <h2>NB1 Csapatok</h2>
+                    
+                    <div id="urlap">
+                        <div className="form-group">
+                            <label>Csapat neve:</label>
+                            <input 
+                                type="text" 
+                                value={ujKlubNev} 
+                                onChange={(e) => setUjKlubNev(e.target.value)} 
+                                placeholder="Adja meg a csapat nevét"
+                            />
+                        </div>
+                        
+                        <button className="btn-main" onClick={handleAddOrUpdate}>
+                            {szerkesztId ? 'Mentés' : 'Hozzáadás'}
+                        </button>
+                        
+                        {szerkesztId && (
+                            <button className="btn-cancel" onClick={() => { setSzerkesztId(null); setUjKlubNev(''); }}>
+                                Mégse
+                            </button>
+                        )}
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Csapatnév</th>
+                                <th>Műveletek</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {klubok.map((klub) => (
+                                <tr key={klub.id}>
+                                    <td>{klub.id}</td>
+                                    <td>{klub.csapatnev}</td>
+                                    <td>
+                                        <button className="btn-edit" onClick={() => handleEdit(klub)}>Szerkesztés</button>
+                                        <button className="btn-delete" onClick={() => handleDelete(klub.id)}>Törlés</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
