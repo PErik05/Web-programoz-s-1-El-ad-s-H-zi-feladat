@@ -41,3 +41,15 @@ nav a {
     font-weight: bold;
 }
 
+footer {
+    background-color: #161B40;
+    color: #bdc3c7;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: auto;
+}
+
+footer p {
+    margin: 5px 0;
+    font-size: 1.1rem;
+}
