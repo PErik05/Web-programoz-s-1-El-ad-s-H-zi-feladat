@@ -17,6 +17,12 @@ header {
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+}
+
 nav {
     background-color: #192057;
     display: flex;
@@ -34,3 +40,4 @@ nav a {
     transition: background-color 0.3s;
     font-weight: bold;
 }
+
