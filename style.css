@@ -165,3 +165,11 @@ th {
     display: block;
     margin: 0 auto;
 }
+
+.btn-labda {
+    background-color: #ff6600;
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px; 
+    border-radius: 20px;
+}
