@@ -45,7 +45,7 @@ class Labda {
 }
 class Focilabda extends Labda {
     constructor(meret) {
-        const focilabdaKep = "ball.png";
+        const focilabdaKep = "img/ball.png";
         
         super(focilabdaKep, meret);
     }
