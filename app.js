@@ -43,3 +43,29 @@ class Labda {
         this.elem.style.transform = `rotate(${this.x}deg)`;
     }
 }
+class Focilabda extends Labda {
+    constructor(meret) {
+        const focilabdaKep = "ball.png";
+        
+        super(focilabdaKep, meret);
+    }
+    
+}
+
+const labdak = [];
+
+window.onload = () => {
+    const gomb = document.getElementById('generalasGomb');
+
+    gomb.onclick = () => {
+        const ujLabda = new Focilabda(80);
+        ujLabda.megjelenit();
+        labdak.push(ujLabda);
+    };
+
+    function frissites() {
+        labdak.forEach(labda => labda.mozog());
+        requestAnimationFrame(frissites);
+    }
+    frissites();
+};
