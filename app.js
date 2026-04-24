@@ -24,5 +24,22 @@ class Labda {
     }
 
 
-   
+    mozog() {
+        if (!this.elem) return;
+
+        this.x += this.sebessegX;
+        this.y += this.sebessegY;
+
+        if (this.x <= 0 || this.x >= window.innerWidth - this.meret) {
+            this.sebessegX *= -1;
+        }
+        if (this.y <= 0 || this.y >= window.innerHeight - this.meret) {
+            this.sebessegY *= -1;
+        }
+
+        this.elem.style.left = this.x + 'px';
+        this.elem.style.top = this.y + 'px';
+        
+        this.elem.style.transform = `rotate(${this.x}deg)`;
+    }
 }
