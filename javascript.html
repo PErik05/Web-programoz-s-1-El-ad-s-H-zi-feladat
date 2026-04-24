@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<header>
+    <header>
         <h1>Web programozás-1 Előadás Házi feladat</h1>
     </header>
 
@@ -22,6 +22,7 @@
         <a href="axios.html">Axios</a>
         <a href="oojs.html">OOJS</a>
     </nav>
+
     <div class="crud-container">
         <h2>NB1 Játékosok</h2>
         
@@ -39,7 +40,7 @@
                 <input type="text" id="szulido">
             </div>
             <button type="button" id="mentesGomb" class="btn-add" onclick="mentes()">Hozzáadás</button>
-            <button type="button" onclick="resetForm()" id="cancelBtn" style="display:none; background:#7f8c8d;">Mégse</button>
+            <button type="button" id="megseGomb" class="btn-cancel" onclick="mezokUritese() "style="display: none;">Mégse</button>
         </div>
         <table>
             <thead>
@@ -139,6 +140,7 @@
                     document.getElementById("szulido").value = jatekosok[i].szulido;
                     szerkesztId = id;
                     document.getElementById("mentesGomb").innerHTML = "Módosítás";
+                    document.getElementById("megseGomb").style.display = "inline-block";
                     break;
                 }
             }
@@ -150,6 +152,7 @@
             document.getElementById("szulido").value = "";
             szerkesztId = null;
             document.getElementById("mentesGomb").innerHTML = "Hozzáadás";
+            document.getElementById("megseGomb").style.display = "none";
         }
 
         window.onload = function() {
