@@ -12,6 +12,17 @@ class Labda {
         this.elem = null; 
     }
 
+    megjelenit() {
+        this.elem = document.createElement('img');
+        this.elem.src = this.kepUrl;
+        this.elem.style.position = 'absolute';
+        this.elem.style.width = this.meret + 'px';
+        this.elem.style.height = 'auto';
+        this.elem.style.userSelect = 'none';
+        
+        document.body.appendChild(this.elem);
+    }
+
 
    
 }
